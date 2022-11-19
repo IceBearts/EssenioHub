@@ -1,0 +1,102 @@
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+local key = "https://pastebin.com/raw/b1eaFKVy"
+
+local Window = Rayfield:CreateWindow({
+		Name = "Essenio Hub[Find the Simpsons]",
+		LoadingTitle = "Loading Essenio Hub[Find the Simpsons]",
+		LoadingSubtitle = "by Essenio Developer Team",
+		ConfigurationSaving = {
+			Enabled = false,
+			FolderName = nil, -- Create a custom folder for your hub/game
+			FileName = "Essenio Hub"
+		},
+					Discord = {
+						Enabled = false,
+						Invite = "HAFqS5BTAT", -- The Discord invite code, do not include discord.gg/
+						RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+					},
+		KeySystem = true, -- Set this to true to use our key system
+		KeySettings = {
+			Title = "Essenio Hub",
+			Subtitle = "Key System",
+			Note = "Join the discord (https://discord.gg/HAFqS5BTAT)",
+			FileName = "Essenio Hub",
+			SaveKey = true,
+			GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+			Key = key
+		}
+	})
+	Rayfield:Notify({
+		Title = "Loaded Find the Simpsons UI.",
+		Content = "Join our community discord server for updates! (https://discord.gg/HAFqS5BTAT)",
+		Duration = 6.5,
+		Image = 6525485108,
+		Actions = { -- Notification Buttons
+				Ignore = {
+						Name = "Okay",
+						Callback = function()
+								print("The user tapped Okay")
+						end
+		},
+	},
+	})
+local Credits = Window:CreateTab("Credits", 4483362458) -- Home Page/Credits
+	local Duckity = Credits:CreateLabel("Duckity - Founder")
+	local Th0r1ty = Credits:CreateLabel("Th0r1ty - Founder")
+	local Madderma = Credits:CreateLabel("Madderma - Contributor")
+local FindTheSimpsons = Window:CreateTab("Find the Simpsons", 4483362458)
+local Section = FindTheSimpsons:CreateSection("Loader")
+local Button = FindTheSimpsons:CreateButton({
+	Name = "Find Simpsons",
+	Callback = function()
+		--select your script version
+local scriptversion = 1  -- 1 or 2
+
+
+function first()
+repeat task.wait()
+for _,v in pairs(game:GetService("Workspace").Creatures:GetDescendants()) do
+			if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+        wait(0.1) -- delay so you don't teleport too fast
+    end
+end
+until game.Players.LocalPlayer.Character.HumanoidRootPart.NameTag.UpperText.Text == "171"
+end
+
+function third()
+getgenv().Farm = true
+
+while getgenv().Farm do wait()
+if game.Players.LocalPlayer.Character.HumanoidRootPart.NameTag.UpperText.Text == "171" then
+getgenv().Farm = false
+end
+for _,v in pairs(game:GetService("Workspace").Creatures:GetDescendants()) do
+     if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+        wait(0.1) -- delay so you don't teleport too fast
+    end
+end
+end
+end
+
+
+table11 = {first(), third()}
+
+print(table11[scriptversion])
+		Rayfield:Notify({
+			Title = "Script Loaded.",
+			Content = "If this is bugged please let us know in our community discord server (https://discord.gg/HAFqS5BTAT)",
+			Duration = 6.5,
+			Image = 6525485108,
+			Actions = { -- Notification Buttons
+					Ignore = {
+							Name = "Okay",
+							Callback = function()
+									print("The user tapped Okay")
+							end
+			},
+		},
+		})
+	end,
+})
