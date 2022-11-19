@@ -1,0 +1,78 @@
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+local key = "https://pastebin.com/raw/b1eaFKVy"
+
+local Window = Rayfield:CreateWindow({
+		Name = "Essenio Hub[Dunking Simulator]",
+		LoadingTitle = "Loading Essenio Hub[Dunking Simulator]",
+		LoadingSubtitle = "by Essenio Developer Team",
+		ConfigurationSaving = {
+			Enabled = false,
+			FolderName = nil, -- Create a custom folder for your hub/game
+			FileName = "Essenio Hub"
+		},
+					Discord = {
+						Enabled = false,
+						Invite = "HAFqS5BTAT", -- The Discord invite code, do not include discord.gg/
+						RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+					},
+		KeySystem = true, -- Set this to true to use our key system
+		KeySettings = {
+			Title = "Essenio Hub",
+			Subtitle = "Key System",
+			Note = "Join the discord (https://discord.gg/HAFqS5BTAT)",
+			FileName = "Essenio Hub",
+			SaveKey = true,
+			GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+			Key = key
+		}
+	})
+	Rayfield:Notify({
+		Title = "Loaded Dunking Simulator UI.",
+		Content = "Join our community discord server for updates! (https://discord.gg/HAFqS5BTAT)",
+		Duration = 6.5,
+		Image = 6525485108,
+		Actions = { -- Notification Buttons
+				Ignore = {
+						Name = "Okay",
+						Callback = function()
+								print("The user tapped Okay")
+						end
+		},
+	},
+	})
+local Credits = Window:CreateTab("Credits", 4483362458) -- Home Page/Credits
+	local Duckity = Credits:CreateLabel("Duckity - Founder")
+	local Th0r1ty = Credits:CreateLabel("Th0r1ty - Founder")
+	local Madderma = Credits:CreateLabel("Madderma - Contributor")
+local DunkingSimulator = Window:CreateTab("Dunking Simulator", 4483362458)
+local Section = DunkingSimulator:CreateSection("Stats")
+local Toggle = DunkingSimulator:CreateToggle({
+	Name = "Inf Money",
+	CurrentValue = false,
+	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		getgenv().a = Value -- make false to turn off
+
+		while a do
+				task.wait()
+				game:GetService("ReplicatedStorage").Remote.Shoes.SellShoes:FireServer(
+						game:GetService("Players").LocalPlayer.ownedShoes["2"],
+						0,
+						1000000000000
+				)
+		end
+	end,
+})
+local Toggle = DunkingSimulator:CreateToggle({
+	Name = "Auto Rebirth",
+	CurrentValue = false,
+	Flag = "Toggle2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		getgenv().a = Value -- make false to turn off
+
+		while a do
+				task.wait()
+				game:GetService("ReplicatedStorage").Rebirth:FireServer()
+		end
+	end,
+})
