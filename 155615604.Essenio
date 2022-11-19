@@ -1,0 +1,415 @@
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+local key = "https://pastebin.com/raw/b1eaFKVy"
+
+local Window = Rayfield:CreateWindow({
+		Name = "Essenio Hub[Prison Life]",
+		LoadingTitle = "Loading Essenio Hub[Prison Life]..",
+		LoadingSubtitle = "by Essenio Developer Team",
+		ConfigurationSaving = {
+			Enabled = false,
+			FolderName = nil, -- Create a custom folder for your hub/game
+			FileName = "Essenio Hub"
+		},
+					Discord = {
+						Enabled = false,
+						Invite = "HAFqS5BTAT", -- The Discord invite code, do not include discord.gg/
+						RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+					},
+		KeySystem = true, -- Set this to true to use our key system
+		KeySettings = {
+			Title = "Essenio Hub",
+			Subtitle = "Key System",
+			Note = "Join the discord (https://discord.gg/HAFqS5BTAT)",
+			FileName = "Essenio Hub",
+			SaveKey = true,
+			GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+			Key = key
+		}
+	})
+	Rayfield:Notify({
+    Title = "Loaded Prison Life UI",
+    Content = "Join our community discord server for updates! (https://discord.gg/HAFqS5BTAT)",
+    Duration = 6.5,
+    Image = 4483362458,
+    Actions = { -- Notification Buttons
+        Ignore = {
+            Name = "Okay",
+            Callback = function()
+                print("The user tapped Okay")
+            end
+		},
+	},
+})
+	local Credits = Window:CreateTab("Credits", 4483362458) -- Home Page/Credits
+	local Duckity = Credits:CreateLabel("Duckity - Founder")
+	local Th0r1ty = Credits:CreateLabel("Th0r1ty - Founder")
+	local PrisonLife = Window:CreateTab("Prison Life", 4483362458) -- Home Page/Credits
+	local Section = PrisonLife:CreateSection("Gun Giver")
+	local Dropdown = PrisonLife:CreateDropdown({
+		Name = "Gun Giver",
+		Options = {"M9","Remington 870","AK-47"},
+		CurrentOption = "Select",
+		Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Callback = function(Option)
+			local args = {
+				[1] = workspace.Prison_ITEMS.giver:FindFirstChild(Option).ITEMPICKUP
+		}
+		
+		workspace.Remote.ItemHandler:InvokeServer(unpack(args))
+		end,
+	})
+	local Button = PrisonLife:CreateButton({
+		Name = "Give All Guns(excluding gamepass guns)",
+		Callback = function()
+			for i,v in pairs(workspace.Prison_ITEMS.giver:GetChildren()) do
+				local OwO = workspace.Remote.ItemHandler:InvokeServer(v.ITEMPICKUP)
+				end
+		end,
+	})
+	local Section = PrisonLife:CreateSection("Item Giver")
+	local Dropdown = PrisonLife:CreateDropdown({
+		Name = "Item Giver",
+		Options = {"Crude Knife","Hammer"},
+		CurrentOption = "Select",
+		Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Callback = function(Option)
+			local args = {
+				[1] = workspace.Prison_ITEMS.single:FindFirstChild(Option).ITEMPICKUP
+		}
+		
+		workspace.Remote.ItemHandler:InvokeServer(unpack(args))
+		end,
+	})
+	local Section = PrisonLife:CreateSection("LocalPlayer")
+	local Slider = PrisonLife:CreateSlider({
+		Name = "WalkSpeed",
+		Range = {16, 300},
+		Increment = 1,
+		Suffix = "WalkSpeed",
+		CurrentValue = 16,
+		Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+		end,
+	})
+	local Slider = PrisonLife:CreateSlider({
+		Name = "JumpPower",
+		Range = {50, 300},
+		Increment = 1,
+		Suffix = "JumpPower",
+		CurrentValue = 50,
+		Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Callback = function(Value)
+				game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+		end,
+	})
+	local Button = PrisonLife:CreateButton({
+		Name = "Restart",
+		Callback = function()
+game.Players.LocalPlayer.Character.Humanoid.Name = 1
+local l = game.Players.LocalPlayer.Character["1"]:Clone()
+l.Parent = game.Players.LocalPlayer.Character
+l.Name = "Humanoid"
+wait()
+game.Players.LocalPlayer.Character["1"]:Destroy()
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+game.Players.LocalPlayer.Character.Animate.Disabled = true
+wait()
+game.Players.LocalPlayer.Character.Animate.Disabled = false
+game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+wait()
+Location = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+wait()
+local prt = Instance.new("Model", workspace);
+Instance.new("Part", prt).Name="Torso";
+Instance.new("Part", prt).Name="Head";
+Instance.new("Humanoid", prt).Name="Humanoid";
+game.Players.LocalPlayer.Character=prt
+wait(6)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Location
+		end,
+	})
+	local Section = PrisonLife:CreateSection("Other")
+	local Button = PrisonLife:CreateButton({
+		Name = "Tase Bypass",
+		Callback = function()
+			game.Players.LocalPlayer.Character.ClientInputHandler.Disabled = true
+			game.Players.LocalPlayer.CharacterAdded:connect(function()
+			game.Workspace:WaitForChild(game.Players.LocalPlayer.Name)
+			game.Players.LocalPlayer.Character.ClientInputHandler.Disabled = true
+			end)
+		end,
+	})
+	local Button = PrisonLife:CreateButton({
+		Name = "Remove Doors",
+		Callback = function()
+			workspace.Prison_Cellblock.doors:Destroy()
+			
+			for i,v in pairs(workspace:GetChildren())do
+					if v.Name == "Doors" then
+				v:Destroy()
+					end
+				end
+		end,
+	})
+	local Button = PrisonLife:CreateButton({
+		Name = "BTools",
+		Callback = function()
+			local tool1 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+			local tool2 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+			local tool3 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+			local tool4 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+			local tool5 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+			tool1.BinType = "Clone"
+			tool2.BinType = "GameTool"
+			tool3.BinType = "Hammer"
+			tool4.BinType = "Script"
+			tool5.BinType = "Grab"
+		end,
+	})
+	local Button = PrisonLife:CreateButton({
+		Name = "Fly(E to disable/enable)",
+		Callback = function()
+		repeat wait()
+		until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Torso") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid")
+		local mouse = game.Players.LocalPlayer:GetMouse()
+		repeat wait() until mouse
+		local plr = game.Players.LocalPlayer
+		local torso = plr.Character.Torso
+		local flying = true
+		local deb = true
+		local ctrl = {f = 0, b = 0, l = 0, r = 0}
+		local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+		local maxspeed = 50
+		local speed = 0
+
+		function Fly()
+		local bg = Instance.new("BodyGyro", torso)
+		bg.P = 9e4
+		bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+		bg.cframe = torso.CFrame
+		local bv = Instance.new("BodyVelocity", torso)
+		bv.velocity = Vector3.new(0,0.1,0)
+		bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+		repeat wait()
+		plr.Character.Humanoid.PlatformStand = true
+		if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+		speed = speed+.5+(speed/maxspeed)
+		if speed > maxspeed then
+		speed = maxspeed
+		end
+		elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+		speed = speed-1
+		if speed < 0 then
+		speed = 0
+		end
+		end
+		if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+		bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+		lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+		elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+	 	bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+		else
+		bv.velocity = Vector3.new(0,0.1,0)
+		end
+		bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
+		until not flying
+		ctrl = {f = 0, b = 0, l = 0, r = 0}
+		lastctrl = {f = 0, b = 0, l = 0, r = 0}
+		speed = 0
+		bg:Destroy()
+		bv:Destroy()
+		plr.Character.Humanoid.PlatformStand = false
+		end
+		mouse.KeyDown:connect(function(key)
+		if key:lower() == "e" then
+		if flying then flying = false
+		else
+		flying = true
+		Fly()
+		end
+		elseif key:lower() == "w" then
+		ctrl.f = 1
+		elseif key:lower() == "s" then
+		ctrl.b = -1
+		elseif key:lower() == "a" then
+		ctrl.l = -1
+		elseif key:lower() == "d" then
+		ctrl.r = 1
+		end
+		end)
+		mouse.KeyUp:connect(function(key)
+		if key:lower() == "w" then
+		ctrl.f = 0
+		elseif key:lower() == "s" then
+		ctrl.b = 0
+		elseif key:lower() == "a" then
+		ctrl.l = 0
+		elseif key:lower() == "d" then
+		ctrl.r = 0
+		end
+		end)
+		Fly()
+		end,
+	})
+	local Button = PrisonLife:CreateButton({
+		Name = "SuperPunch(F to punch)",
+		Callback = function()
+			local mainRemotes = game.ReplicatedStorage
+			local meleeRemote = mainRemotes['meleeEvent']
+			local mouse = game.Players.LocalPlayer:GetMouse()
+			local punching = false
+			local cooldown = false
+			
+			function punch()
+			cooldown = true
+			local part = Instance.new("Part", game.Players.LocalPlayer.Character)
+			part.Transparency = 1
+			part.Size = Vector3.new(5, 2, 3)
+			part.CanCollide = false
+			local w1 = Instance.new("Weld", part)
+			w1.Part0 = game.Players.LocalPlayer.Character.Torso
+			w1.Part1 = part
+			w1.C1 = CFrame.new(0,0,2)
+			part.Touched:connect(function(hit)
+			if game.Players:FindFirstChild(hit.Parent.Name) then
+			local plr = game.Players:FindFirstChild(hit.Parent.Name)
+			if plr.Name ~= game.Players.LocalPlayer.Name then
+			part:Destroy()
+			
+			for i = 1,100 do
+			meleeRemote:FireServer(plr)
+			end
+			end
+			end
+			end)
+			
+			wait(1)
+			cooldown = false
+			part:Destroy()
+			end
+			
+			
+			mouse.KeyDown:connect(function(key)
+			if cooldown == false then
+			if key:lower() == "f" then
+			
+			punch()
+			end
+		end
+			end)
+end,
+})
+local Button = PrisonLife:CreateButton({
+	Name = "KillAura",
+	Callback = function()
+		local mainRemotes = game.ReplicatedStorage
+		local meleeRemote = mainRemotes['meleeEvent']
+		
+		local killAura = true
+		
+		local contextactionservice = game.ContextActionService
+		
+		function toggleKillAura(actionName, inputState, inputObject)
+		print('Doing the action : ' .. actionName)
+		if inputState == Enum.UserInputState.Begin then
+		if killAura == true then
+		killAura = false
+		else
+		killAura = true
+		end
+		end
+		end
+		
+		contextactionservice:BindAction('ToggleKillAura', toggleKillAura, false, Enum.KeyCode.K)
+		
+		while wait() do
+		if killAura == true then
+		for _, plr in pairs (game:GetService('Players'):GetChildren()) do
+		if plr.Name ~= game.Players.LocalPlayer.Name then
+		meleeRemote:FireServer(plr)
+		end
+		end
+		end
+		end
+	end,
+})
+local Section = PrisonLife:CreateSection("Guard")
+local Button = PrisonLife:CreateButton({
+	Name = "Arrest All(bugged)",
+	Callback = function()
+		game.Players.LocalPlayer.Character.ClientInputHandler.Disabled = true
+		game.Players.LocalPlayer.CharacterAdded:connect(function()
+		game.Workspace:WaitForChild(game.Players.LocalPlayer.Name)
+		game.Players.LocalPlayer.Character.ClientInputHandler.Disabled = true
+		end)
+	end,
+})
+	local Teleport = Window:CreateTab("Teleport", 4483362458) -- Teleport
+	local Section = Teleport:CreateSection("Teleports")
+	local Dropdown = Teleport:CreateDropdown({
+		Name = "Teleport",
+		Options = {"Criminal Base TP","Nexus Area TP","Guard Area TP","Cell Area TP","Armory Area TP","Wall Area TP","Yard Area TP","Skywall Area TP","Front Area TP","Criminal Pad Area TP"},
+		CurrentOption = "Select",
+		Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Callback = function(Option)
+			if Option == "Criminal Base TP" then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-943, 96, 2055)
+			elseif Option == "Nexus Area TP" then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(879,99,2377)
+			elseif Option == "Guard Area TP" then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(802,99,2270)
+			elseif Option == "Cell Area TP" then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(916.91394, 101.473854, 2456.18604, -0.999888539, 5.29824283e-05, -0.0149285085, -1.79755625e-05, 0.999988735, 0.00475434074, 0.0149285914, 0.00475407997, -0.999877274)
+			elseif Option == "Armory Area TP" then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(837.355896, 101.472763, 2266.63647, 0.999749184, -8.90113733e-05, 0.0223938301, -1.8733137e-05, 0.999988437, 0.00481109042, -0.0223939978, -0.00481030252, 0.99973762)
+			elseif Option == "Wall Area TP" then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(823.160522, 131.507324, 2569.33813, 1, 1.38536689e-06, -5.78099862e-05, -1.36256517e-06, 0.999999821, 0.000549363845, 5.78106847e-05, -0.000549363845, 0.999999821)
+			elseif Option == "Yard Area TP" then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(736.615173, 99.6887665, 2512.97119, 0.999997199, -3.40389306e-06, -0.00238491991, -4.46612347e-07, 0.999998689, -0.00161580928, 0.00238492223, 0.00161580567, 0.999995887)
+			elseif Option == "Skywall Area TP" then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(823.119202, 397.705841, 2672.00366, 0.999975801, 2.95520476e-05, 0.00695856567, 6.81028922e-08, 0.99999094, -0.0042566075, -0.00695862854, 0.00425650505, 0.999966741)
+			elseif Option == "Front Area TP" then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(504.223053, 126.521599, 2421.09814, -0.00433305278, -0.0047102836, 0.999979556, -1.8185101e-05, 0.999988914, 0.00471024914, -0.999990642, 2.21143955e-06, -0.00433309004)
+			elseif Option == "Criminal Pad Area TP" then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-977.83075, 110.823158, 2053.60034, -0.00541115459, -0.000807852659, -0.99998498, -1.53944185e-07, 0.999999642, -0.000807863718, 0.999985337, -4.22384346e-06, -0.00541115273)
+			end
+		end,
+	})
+	local Section = Teleport:CreateSection("Player Teleport")
+	local Input = Teleport:CreateInput({
+		Name = "Teleport To",
+		PlaceholderText = "PlayerName",
+		RemoveTextAfterFocusLost = false,
+		Callback = function(Text)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Text].Character.HumanoidRootPart.CFrame
+		end,
+	})
+	local Teams = Window:CreateTab("Teams", 4483362458) -- Teleport
+	local Section = Teams:CreateSection("Teams")
+	local Dropdown = Teams:CreateDropdown({
+		Name = "Team",
+		Options = {"Inmate","Guard","Criminal","Neutral"},
+		CurrentOption = "Select",
+		Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Callback = function(Option)
+			if Option == "Inmate" then
+				workspace.Remote.TeamEvent:FireServer("Bright orange")
+			elseif Option == "Guard" then
+				workspace.Remote.TeamEvent:FireServer("Bright blue")
+			elseif Option == "Criminal" then
+				local LCS = game.Workspace["Criminals Spawn"].SpawnLocation
+
+				LCS.CanCollide = false
+				LCS.Size = Vector3.new(51.05, 24.12, 54.76)
+				LCS.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+				LCS.Transparency = 1
+				wait(0.5)
+				LCS.CFrame = CFrame.new(-920.510803, 92.2271957, 2138.27002, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+				LCS.Size = Vector3.new(6, 0.2, 6)
+				LCS.Transparency = 0
+			elseif Option == "Neutral" then
+				workspace.Remote.TeamEvent:FireServer("Medium stone grey")
+			end
+		end,
+	})
